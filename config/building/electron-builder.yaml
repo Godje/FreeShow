@@ -1,6 +1,7 @@
 appId: app.freeshow
 productName: FreeShow
 artifactName: FreeShow-${version}-${arch}.${ext}
+publish: never
 
 # WIDEVINE
 # Use castlabs electron builds to get widevine support
@@ -39,7 +40,7 @@ linux:
     target:
         - AppImage
         - deb
-        - rpm
+        #- rpm
     icon: build/public
 
 # macos
