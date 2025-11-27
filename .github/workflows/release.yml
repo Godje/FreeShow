@@ -1,4 +1,7 @@
 name: Release
+permissions:
+  contents: write
+
 on:
   push:
     branches:
@@ -31,6 +34,15 @@ jobs:
           AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
         run: npm run release
 
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: freeshow-build
+          path: |
+            dist/*.exe
+            dist/*.zip
+            dist/*.dmg
+
   publish_linux:
     name: "Publish Linux x64"
     runs-on: ubuntu-latest
@@ -55,9 +67,18 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npm run release
 
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: freeshow-build
+          path: |
+            dist/*.nupkg
+            dist/*.AppImage
+
   # This needs it's own build
   # https://github.com/ChurchApps/FreeShow/issues/562
   publish_linux_arm:
+    if: false #disabling for now
     name: "Publish Linux arm64"
     runs-on: ubuntu-24.04-arm
 
@@ -101,6 +122,7 @@ jobs:
         run: npm run release:arm64
 
   publish_mac:
+    if: false # disabling for now
     name: "Publish MacOS"
     runs-on: macos-latest
 
