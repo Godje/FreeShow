@@ -73,6 +73,7 @@
 
     let nextScrollTimeout: NodeJS.Timeout | null = null
     let disableAutoScroll = false
+    let synchronizeShowsFeatureEnabled = true;
     function slideClick(e: any, index: number) {
         // TODO: duplicate function of "preview:126 - updateOut"
         if ($outLocked || e.ctrlKey || e.metaKey || e.shiftKey) return
@@ -86,7 +87,25 @@
         // allow custom actions to trigger first
         setTimeout(() => {
             // get line
-            let outputId = getActiveOutputs($outputs, true, true, true)[0]
+            let activeOutputList = getActiveOutputs($outputs, true, true, true);
+
+            if(synchronizeShowsFeatureEnabled){
+                activeOutputList
+                    .map(listName => $outputs[listName])
+                    .filter(output => output.out != undefined)
+                    .filter(output => output.out!.slide != undefined)
+                    .forEach(output => {
+                    let outputShow = output.out!.slide!; // why is it called slide?
+                    let slideRef =_show(outputShow.id).layouts([outputShow.layout]).ref()[0];
+
+                    setOutput("slide", { id: outputShow.id, layout: outputShow.layout, index, line:0, revealCount:0, itemClickReveal:false })
+                    updateOut(outputShow.id, index, slideRef, !e.altKey)
+                    if (activeSlides[index]) refreshOut()
+                });
+                return;
+            }
+
+            let outputId = activeOutputList[0];
             let currentOutput = $outputs[outputId] || {}
             let outSlide = currentOutput.out?.slide || null
             let amountOfLinesToShow = getFewestOutputLines()
