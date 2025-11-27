@@ -515,7 +515,8 @@ const settings = [
             "settings.transparent_slides",
             "settings.full_colors",
             "settings.slide_number_keys",
-            "settings.auto_shortcut_first_letter"
+            "settings.auto_shortcut_first_letter",
+            "settings.sync_slide_index_on_click"
         ]
     },
     { id: "display_settings", name: "settings.display_settings", icon: "display_settings", aliases: ["settings.active_style", "settings.output_screen", "settings.always_on_top", "NDI®", "-Livestream", "-Stage", "-HDMI"] },

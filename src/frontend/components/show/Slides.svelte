@@ -73,7 +73,7 @@
 
     let nextScrollTimeout: NodeJS.Timeout | null = null
     let disableAutoScroll = false
-    let synchronizeShowsFeatureEnabled = true;
+    let synchronizeShowsFeatureEnabled = $special.syncSlideIndexOnClick;
     function slideClick(e: any, index: number) {
         // TODO: duplicate function of "preview:126 - updateOut"
         if ($outLocked || e.ctrlKey || e.metaKey || e.shiftKey) return

@@ -24,11 +24,11 @@ extraResources:
 win:
     target: NSIS
     icon: build/public/icon.png
-    azureSignOptions:
-        publisherName: Live Church Solutions
-        endpoint: https://wus2.codesigning.azure.net/
-        certificateProfileName: FreeShow
-        codeSigningAccountName: FreeShow
+    # azureSignOptions:
+    #     publisherName: Live Church Solutions
+    #     endpoint: https://wus2.codesigning.azure.net/
+    #     certificateProfileName: FreeShow
+    #     codeSigningAccountName: FreeShow
 
 # linux
 
