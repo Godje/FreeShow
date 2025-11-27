@@ -4,8 +4,8 @@
     "private": true,
     "main": "build/electron/index.js",
     "description": "Show song lyrics and more for free!",
-    "repository": "git@github.com:ChurchApps/FreeShow.git",
-    "author": "ChurchApps <support@livecs.org>",
+    "repository": "git@github.com:Godge/FreeShow.git",
+    "author": "ChurchApps <support@livecs.org>, Daniel Mayovskiy <weirdmayo@protonmail.com>",
     "license": "GPL-3.0",
     "scripts": {
         "postinstall": "electron-builder install-app-deps",
