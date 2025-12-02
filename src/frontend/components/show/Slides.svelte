@@ -73,7 +73,7 @@
 
     let nextScrollTimeout: NodeJS.Timeout | null = null
     let disableAutoScroll = false
-    let synchronizeShowsFeatureEnabled = $special.syncSlideIndexOnClick;
+    let synchronizeShowsFeatureEnabled = $special.syncSlideIndexOnClick
     function slideClick(e: any, index: number) {
         // TODO: duplicate function of "preview:126 - updateOut"
         if ($outLocked || e.ctrlKey || e.metaKey || e.shiftKey) return
@@ -87,23 +87,23 @@
         // allow custom actions to trigger first
         setTimeout(() => {
             // get line
-            let activeOutputList = getActiveOutputs($outputs, true, true, true);
-            if(synchronizeShowsFeatureEnabled && activeOutputList.length > 1){
+            let activeOutputList = getActiveOutputs($outputs, true, true, true)
+            if (synchronizeShowsFeatureEnabled && activeOutputList.length > 1) {
                 let activeShows = activeOutputList
                     .map(listName => $outputs[listName])
                     .filter(output => output.out != undefined && output.out!.slide != undefined)
-                    .map(output => output.out!.slide!);
-                if(activeShows.length > 1){
+                    .map(output => output.out!.slide!)
+                if (activeShows.length > 1) {
                     activeShows.forEach(outputShow => {
-                        let slideRef =_show(outputShow.id).layouts([outputShow.layout]).ref()[0];
-                        setOutput("slide", { id: outputShow.id, layout: outputShow.layout, index, line:0, revealCount:0, itemClickReveal:false })
+                        let slideRef = _show(outputShow.id).layouts([outputShow.layout]).ref()[0]
+                        setOutput("slide", { id: outputShow.id, layout: outputShow.layout, index, line: 0, revealCount: 0, itemClickReveal: false })
                         updateOut(outputShow.id, index, slideRef, !e.altKey)
                         if (activeSlides[index]) refreshOut()
-                    });
-                    return;
+                    })
+                    return
                 }
             }
-            let outputId = activeOutputList[0];
+            let outputId = activeOutputList[0]
             let currentOutput = $outputs[outputId] || {}
             let outSlide = currentOutput.out?.slide || null
             let amountOfLinesToShow = getFewestOutputLines()

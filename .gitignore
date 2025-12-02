@@ -22,3 +22,7 @@ test-results/
 *.ipr
 *.iws
 .serena
+
+# Neovim IDE
+.nvim.lua
+Session.vim
