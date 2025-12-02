@@ -39,7 +39,7 @@ jobs:
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: freeshow-build
+          name: freeshow-build-windows
           path: |
             dist/*.exe
             dist/*.zip
@@ -75,7 +75,7 @@ jobs:
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: freeshow-build
+          name: freeshow-build-linux
           path: |
             dist/*.AppImage
             dist/*.deb
@@ -172,3 +172,10 @@ jobs:
           # APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLEIDPASS }}
           # APPLE_TEAM_ID: ${{ secrets.APPLETEAMID }}
         run: npm run release-artifact
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: freeshow-build-macos
+          path: |
+            dist/*.dmg
