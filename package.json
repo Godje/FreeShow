@@ -30,6 +30,7 @@
         "---RELEASE---": "",
         "prerelease": "npm run build",
         "release": "electron-builder --config config/building/electron-builder.yaml",
+        "release-artifact": "electron-builder --config config/building/electron-builder.yaml --publish=never",
         "postrelease": "node scripts/cleanBuilds.js",
         "prerelease:arm64": "npm run build",
         "release:arm64": "electron-builder --config config/building/electron-builder-lnxarm.yaml --arm64 --publish onTagOrDraft",

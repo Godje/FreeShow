@@ -1,4 +1,6 @@
 name: Release
+permissions:
+  contents: write
 on:
   push:
     branches:
@@ -26,14 +28,25 @@ jobs:
       - name: Build and release app
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-          AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-          AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
-        run: npm run release
+          # AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+          # AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+          # AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+        run: npm run release-artifact
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: freeshow-build
+          path: |
+            dist/*.exe
+            dist/*.zip
+            dist/*.dmg
 
   publish_linux:
     name: "Publish Linux x64"
     runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
       - name: Check out Git repository
@@ -51,13 +64,20 @@ jobs:
         run: npm install
 
       - name: Build and release app
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: npm run release
+        run: npm run release-artifact
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: freeshow-build
+          path: |
+            dist/*.AppImage
+            dist/*.deb
 
   # This needs it's own build
   # https://github.com/ChurchApps/FreeShow/issues/562
   publish_linux_arm:
+    if: false
     name: "Publish Linux arm64"
     runs-on: ubuntu-24.04-arm
 
@@ -137,9 +157,9 @@ jobs:
       - name: Build and release app
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          CSC_LINK: ${{ secrets.CSC_LINK }}
-          CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
-          APPLE_ID: ${{ secrets.APPLEID }}
-          APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLEIDPASS }}
-          APPLE_TEAM_ID: ${{ secrets.APPLETEAMID }}
-        run: npm run release
+          # CSC_LINK: ${{ secrets.CSC_LINK }}
+          # CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
+          # APPLE_ID: ${{ secrets.APPLEID }}
+          # APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLEIDPASS }}
+          # APPLE_TEAM_ID: ${{ secrets.APPLETEAMID }}
+        run: npm run release-artifact
